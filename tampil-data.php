@@ -1,14 +1,3 @@
- <!-- Aplikasi CRUD
- ************************************************
- * Developer    : Indra Styawantoro
- * Company      : Indra Studio
- * Release Date : 1 Maret 2016
- * Website      : http://www.indrasatya.com, http://www.kulikoding.net
- * E-mail       : indra.setyawantoro@gmail.com
- * Phone        : +62-856-6991-9769
- * BBM          : 7679B9D9
- -->
-
 <?php 
 if (isset($_POST['cari'])) {
   $cari = $_POST['cari'];
@@ -21,7 +10,7 @@ if (isset($_POST['cari'])) {
     <div class="col-md-12">
       <div class="page-header">
         <h4>
-          <i class="glyphicon glyphicon-user"></i> Data Siswa
+          <i class="glyphicon glyphicon-user"></i> Data sparepart
           
           <div class="pull-right btn-tambah">
             <form class="form-inline" method="POST" action="index.php">
@@ -57,28 +46,28 @@ if (isset($_POST['cari'])) {
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data siswa berhasil disimpan.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data  sparepart berhasil disimpan.
           </div>";
   } elseif ($_GET['alert'] == 3) {
     echo "<div class='alert alert-success alert-dismissible' role='alert'>
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data siswa berhasil diubah.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data  sparepart berhasil diubah.
           </div>";
   } elseif ($_GET['alert'] == 4) {
     echo "<div class='alert alert-success alert-dismissible' role='alert'>
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data siswa berhasil dihapus.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data  sparepart berhasil dihapus.
           </div>";
   }
   ?>
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Data Siswa</h3>
+          <h3 class="panel-title">Data  sparepart</h3>
         </div>
         <div class="panel-body">
           <div class="table-responsive">
@@ -86,13 +75,12 @@ if (isset($_POST['cari'])) {
               <thead>
                 <tr>
                   <th>No.</th>
-                  <th>NIS</th>
-                  <th>Nama</th>
-                  <th>Tempat, Tanggal Lahir</th>
-                  <th>Jenis Kelamin</th>
-                  <th>Agama</th>
-                  <th>Alamat</th>
-                  <th>No. Telepon</th>
+                  <th>no barang</th>
+                  <th>nama sparepart</th>
+                  <th>tanggal masuk barang</th>
+                  <th>ketersediaan barang</th>
+                  <th>kondisi</th>
+                  
                   <th>Aksi</th>
                 </tr>
               </thead>   
@@ -103,11 +91,11 @@ if (isset($_POST['cari'])) {
               $batas = 5;
 
               if (isset($cari)) {
-                $jumlah_record = mysqli_query($db, "SELECT * FROM is_siswa
-                                                    WHERE nis LIKE '%$cari%' OR nama LIKE '%$cari%'")
+                $jumlah_record = mysqli_query($db, "SELECT * FROM spare
+                                                    WHERE no_barang LIKE '%$cari%' OR nama_sparepart LIKE '%$cari%'")
                                                     or die('Ada kesalahan pada query jumlah_record: '.mysqli_error($db));
               } else {
-                $jumlah_record = mysqli_query($db, "SELECT * FROM is_siswa")
+                $jumlah_record = mysqli_query($db, "SELECT * FROM spare")
                                                     or die('Ada kesalahan pada query jumlah_record: '.mysqli_error($db));
               }
 
@@ -118,39 +106,38 @@ if (isset($_POST['cari'])) {
               /*-------------------------------------------------------------------*/
               $no = 1;
               if (isset($cari)) {
-                $query = mysqli_query($db, "SELECT * FROM is_siswa
-                                            WHERE nis LIKE '%$cari%' OR nama LIKE '%$cari%' 
-                                            ORDER BY nis DESC LIMIT $mulai, $batas") 
-                                            or die('Ada kesalahan pada query siswa: '.mysqli_error($db));
+                $query = mysqli_query($db, "SELECT * FROM spare
+                                            WHERE no_barang LIKE '%$cari%' OR nama_sparepart LIKE '%$cari%' 
+                                            ORDER BY no_barang DESC LIMIT $mulai, $batas") 
+                                            or die('Ada kesalahan pada query : '.mysqli_error($db));
               } else {
-                $query = mysqli_query($db, "SELECT * FROM is_siswa
-                                            ORDER BY nis DESC LIMIT $mulai, $batas")
-                                            or die('Ada kesalahan pada query siswa: '.mysqli_error($db));
+                $query = mysqli_query($db, "SELECT * FROM spare
+                                            ORDER BY no_barang DESC LIMIT $mulai, $batas")
+                                            or die('Ada kesalahan pada query : '.mysqli_error($db));
               }
               
               while ($data = mysqli_fetch_assoc($query)) {
 
-                $tanggal        = $data['tanggal_lahir'];
+                $tanggal        = $data['tanggal_masuk_barang'];
                 $tgl            = explode('-',$tanggal);
-                $tanggal_lahir  = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+                $tanggal_masuk_barang  = $tgl[2]."-".$tgl[1]."-".$tgl[0];
 
                 echo "  <tr>
                       <td width='50' class='center'>$no</td>
-                      <td width='60'>$data[nis]</td>
-                      <td width='150'>$data[nama]</td>
-                      <td width='180'>$data[tempat_lahir], $tanggal_lahir</td>
-                      <td width='120'>$data[jenis_kelamin]</td>
-                      <td width='120'>$data[agama]</td>
-                      <td width='250'>$data[alamat]</td>
-                      <td width='80'>$data[no_telepon]</td>
+                      <td width='60'>$data[no_barang]</td>
+                      <td width='150'>$data[nama_sparepart]</td>
+                      <td width='180'>$data[tanggal_masuk_barang]</td>
+                      <td width='120'>$data[ketersediaan_barang]</td>
+                      <td width='120'>$data[kondisi]</td>
+                  
 
                       <td width='100'>
                         <div class=''>
-                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px' class='btn btn-info btn-sm' href='?page=ubah&id=$data[nis]'>
+                          <a data-toggle='tooltip' data-placement='top' title='Ubah' style='margin-right:5px' class='btn btn-info btn-sm' href='?page=ubah&id=$data[no_barang]'>
                             <i class='glyphicon glyphicon-edit'></i>
                           </a>";
               ?>
-                          <a data-toggle="tooltip" data-placement="top" title="Hapus" class="btn btn-danger btn-sm" href="proses-hapus.php?id=<?php echo $data['nis'];?>" onclick="return confirm('Anda yakin ingin menghapus siswa <?php echo $data['nama']; ?>?');">
+                          <a data-toggle="tooltip" data-placement="top" title="Hapus" class="btn btn-danger btn-sm" href="proses-hapus.php?id=<?php echo $data['no_barang'];?>" onclick="return confirm('Anda yakin ingin menghapus <?php echo $data['nama_sparepart']; ?>?');">
                             <i class="glyphicon glyphicon-trash"></i>
                           </a>
               <?php

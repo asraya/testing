@@ -1,15 +1,4 @@
- <!-- Aplikasi CRUD
- ************************************************
- * Developer    : Indra Styawantoro
- * Company      : Indra Studio
- * Release Date : 1 Maret 2016
- * Website      : http://www.indrasatya.com, http://www.kulikoding.net
- * E-mail       : indra.setyawantoro@gmail.com
- * Phone        : +62-856-6991-9769
- * BBM          : 7679B9D9
- -->
- 
-  <div class="row">
+ <div class="row">
     <div class="col-md-12">
       <div class="page-header">
         <h4>
@@ -19,21 +8,19 @@
       </div> <!-- /.page-header -->
       <?php
       if (isset($_GET['id'])) {
-        $nis   = $_GET['id'];
-        $query = mysqli_query($db, "SELECT * FROM is_siswa WHERE nis='$nis'") or die('Query Error : '.mysqli_error($db));
+        $no_barang   = $_GET['id'];
+        $query = mysqli_query($db, "SELECT * FROM spare WHERE no_barang='$no_barang'") or die('Query Error : '.mysqli_error($db));
         while ($data  = mysqli_fetch_assoc($query)) {
-          $nis           = $data['nis'];
-          $nama          = $data['nama'];
-          $tempat_lahir  = $data['tempat_lahir'];
+          $no_barang           = $data['no_barang'];
+          $nama_sparepart          = $data['nama_sparepart'];
           
-          $tanggal       = $data['tanggal_lahir'];
+          $tanggal       = $data['tanggal_masuk_barang'];
           $tgl           = explode('-',$tanggal);
-          $tanggal_lahir = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+          $tanggal_masuk_barang = $tgl[2]."-".$tgl[1]."-".$tgl[0];
           
-          $jenis_kelamin = $data['jenis_kelamin'];
-          $agama         = $data['agama'];
-          $alamat        = $data['alamat'];
-          $no_telepon    = $data['no_telepon'];
+          $ketersediaan_barang = $data['ketersediaan_barang'];
+          $kondisi         = $data['kondisi'];
+        
         }
       }
       ?>
@@ -41,31 +28,25 @@
         <div class="panel-body">
           <form class="form-horizontal" method="POST" action="proses-ubah.php">
             <div class="form-group">
-              <label class="col-sm-2 control-label">NIS</label>
+              <label class="col-sm-2 control-label">no barang</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="nis" value="<?php echo $nis; ?>" readonly>
+                <input type="text" class="form-control" name="no_barang" value="<?php echo $no_barang; ?>" readonly>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Nama Siswa</label>
+              <label class="col-sm-2 control-label">nama sparepart</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control" name="nama" autocomplete="off" value="<?php echo $nama; ?>" required>
+                <input type="text" class="form-control" name="nama_sparepart" autocomplete="off" value="<?php echo $nama_sparepart; ?>" required>
               </div>
             </div>
+   
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tempat Lahir</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" name="tempat_lahir" autocomplete="off" value="<?php echo $tempat_lahir; ?>" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Lahir</label>
+              <label class="col-sm-2 control-label">tanggal masuk barang</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" name="tanggal_lahir" autocomplete="off" value="<?php echo $tanggal_lahir; ?>" required>
+                  <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" name="tanggal_masuk_barang" autocomplete="off" value="<?php echo $tanggal_masuk_barang; ?>" required>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </span>
@@ -77,22 +58,22 @@
               <label class="col-sm-2 control-label">Jenis Kelamin</label>
               <div class="col-sm-4">
               <?php
-              if ($jenis_kelamin=='Laki-laki') { ?>
+              if ($ketersediaan_barang=='Ready') { ?>
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Laki-laki" checked> Laki-laki
+                  <input type="radio" name="ketersediaan_barang" value="Ready" checked> Ready
                 </label>
 
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                  <input type="radio" name="ketersediaan_barang" value="Kosong"> Kosong
                 </label>
               <?php
               } else { ?>
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                  <input type="radio" name="ketersediaan_barang" value="Ready"> Ready
                 </label>
 
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Perempuan" checked> Perempuan
+                  <input type="radio" name="ketersediaan_barang" value="Kosong" checked> Kosong
                 </label>
               <?php
               }
@@ -101,33 +82,18 @@
             </div>
             
             <div class="form-group">
-              <label class="col-sm-2 control-label">Agama</label>
+              <label class="col-sm-2 control-label">kondisi</label>
               <div class="col-sm-3">
-                <select class="form-control" name="agama" placeholder="Pilih Agama" required>
-                  <option value="<?php echo $agama; ?>"><?php echo $agama; ?></option>
+                <select class="form-control" name="kondisi" placeholder="Pilih kondisi" required>
+                  <option value="<?php echo $kondisi; ?>"><?php echo $kondisi; ?></option>
                   <option value=""></option>
-                  <option value="Islam">Islam</option>
-                  <option value="Kristen Protestan">Kristen Protestan</option>
-                  <option value="Kristen Katolik">Kristen Katolik</option>
-                  <option value="Hindu">Hindu</option>
-                  <option value="Buddha">Buddha</option>
+                  <option value="baru">baru</option>
+                  <option value="bekas">bekas</option>
+                  
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Alamat</label>
-              <div class="col-sm-3">
-                <textarea class="form-control" name="alamat" rows="3" required><?php echo $alamat; ?></textarea>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label">No. Telepon</label>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" name="no_telepon" autocomplete="off" maxlength="12" onKeyPress="return goodchars(event,'0123456789',this)" value="<?php echo $no_telepon; ?>" required>
-              </div>
-            </div>
             
             <hr/>
             <div class="form-group">

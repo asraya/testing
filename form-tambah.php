@@ -1,20 +1,10 @@
- <!-- Aplikasi CRUD
- ************************************************
- * Developer    : Indra Styawantoro
- * Company      : Indra Studio
- * Release Date : 1 Maret 2016
- * Website      : http://www.indrasatya.com, http://www.kulikoding.net
- * E-mail       : indra.setyawantoro@gmail.com
- * Phone        : +62-856-6991-9769
- * BBM          : 7679B9D9
- -->
- 
+
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
         <h4>
           <i class="glyphicon glyphicon-edit"></i> 
-          Input data siswa
+          Input Data sparepart
         </h4>
       </div> <!-- /.page-header -->
 
@@ -22,31 +12,24 @@
         <div class="panel-body">
           <form class="form-horizontal" method="POST" action="proses-simpan.php">
             <div class="form-group">
-              <label class="col-sm-2 control-label">NIS</label>
+              <label class="col-sm-2 control-label">no barang</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="nis" maxlength="5" autocomplete="off" required>
+                <input type="text" class="form-control" name="no_barang" maxlength="5" autocomplete="off" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Nama Siswa</label>
+              <label class="col-sm-2 control-label">nama sparepart</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control" name="nama" autocomplete="off" required>
+                <input type="text" class="form-control" name="nama_sparepart" autocomplete="off" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tempat Lahir</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" name="tempat_lahir" autocomplete="off" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Lahir</label>
+              <label class="col-sm-2 control-label">Tanggal masuk barang</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" name="tanggal_lahir" autocomplete="off" required>
+                  <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" name="tanggal_masuk_barang" autocomplete="off" required>
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </span>
@@ -55,46 +38,31 @@
             </div>
             
             <div class="form-group">
-              <label class="col-sm-2 control-label">Jenis Kelamin</label>
+              <label class="col-sm-2 control-label">ketersediaan barang</label>
               <div class="col-sm-4">
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                  <input type="radio" name="ketersediaan_barang" value="Ready"> Ready
                 </label>
 
                 <label class="radio-inline">
-                  <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                  <input type="radio" name="ketersediaan_barang" value="Kosong"> kosong
                 </label>
               </div>
             </div>
             
             <div class="form-group">
-              <label class="col-sm-2 control-label">Agama</label>
+              <label class="col-sm-2 control-label">kondisi</label>
               <div class="col-sm-3">
-                <select class="form-control" name="agama" placeholder="Pilih Agama" required>
+                <select class="form-control" name="kondisi" placeholder="Pilih kondisi" required>
                   <option value=""></option>
-                  <option value="Islam">Islam</option>
-                  <option value="Kristen Protestan">Kristen Protestan</option>
-                  <option value="Kristen Katolik">Kristen Katolik</option>
-                  <option value="Hindu">Hindu</option>
-                  <option value="Buddha">Buddha</option>
+                  <option value="baru">barus</option>
+                  <option value="bekas">bekas</option>
+                 
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Alamat</label>
-              <div class="col-sm-3">
-                <textarea class="form-control" name="alamat" rows="3" required></textarea>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label">No. Telepon</label>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" name="no_telepon" autocomplete="off" maxlength="12" onKeyPress="return goodchars(event,'0123456789',this)" required>
-              </div>
-            </div>
-            
+         
             <hr/>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">

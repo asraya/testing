@@ -1,4 +1,4 @@
- <!-- Aplikasi CRUD
+<!-- Aplikasi CRUD
  ************************************************
  * Developer    : Indra Styawantoro
  * Company      : Indra Studio
@@ -9,34 +9,30 @@
  * BBM          : 7679B9D9
  -->
  
-<?php
+ <?php
 // Panggil koneksi database
 require_once "config/database.php";
 
 if (isset($_POST['simpan'])) {
-	if (isset($_POST['nis'])) {
-		$nis           = mysqli_real_escape_string($db, trim($_POST['nis']));
-		$nama          = mysqli_real_escape_string($db, trim($_POST['nama']));
-		$tempat_lahir  = mysqli_real_escape_string($db, trim($_POST['tempat_lahir']));
+	if (isset($_POST['no_barang'])) {
+		$no_barang           = mysqli_real_escape_string($db, trim($_POST['no_barang']));
+		$nama_sparepart          = mysqli_real_escape_string($db, trim($_POST['nama_sparepart']));
 
-		$tanggal       = $_POST['tanggal_lahir'];
+		$tanggal       = $_POST['tanggal_masuk_barang'];
 		$tgl           = explode('-',$tanggal);
-		$tanggal_lahir = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+		$tanggal_masuk_barang = $tgl[2]."-".$tgl[1]."-".$tgl[0];
 
-		$jenis_kelamin = $_POST['jenis_kelamin'];
-		$agama         = $_POST['agama'];
-		$alamat        = mysqli_real_escape_string($db, trim($_POST['alamat']));
-		$no_telepon    = $_POST['no_telepon'];
+		$ketersediaan_barang = $_POST['ketersediaan_barang'];
+		$kondisi         = $_POST['kondisi'];
+	
 
 		// perintah query untuk mengubah data pada tabel is_siswa
-		$query = mysqli_query($db, "UPDATE is_siswa SET nama 			= '$nama',
-														tempat_lahir 	= '$tempat_lahir',
-														tanggal_lahir 	= '$tanggal_lahir',
-														jenis_kelamin 	= '$jenis_kelamin',
-														agama 			= '$agama',
-														alamat 			= '$alamat',
-														no_telepon 		= '$no_telepon'
-												  WHERE nis 			= '$nis'");		
+		$query = mysqli_query($db, "UPDATE is_siswa SET nama_sparepart 			= '$nama_sparepart',
+														tanggal_masuk_barang 	= '$tanggal_masuk_barang',
+														ketersediaan_barang 	= '$ketersediaan_barang',
+														kondisi 			= '$kondisi'
+													
+												  WHERE no_barang 			= '$no_barang'");		
 
 		// cek query
 		if ($query) {
